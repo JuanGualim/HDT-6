@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+/**
+ * Clase que gestiona un mapa de Pokémon y una colección de usuario.
+ */
 public class ModelMap {
     private Map<String, Pokemon> pokemonMap;
     private Set<String> userCollection;
@@ -30,9 +33,9 @@ public class ModelMap {
     }
     
     /**
-     * Cargar los datos de los Pokémon desde un archivo CSV
-     * @param filename
-     * @throws FileNotFoundException
+     * Cargar los datos de los Pokémon desde un archivo CSV.
+     * @param filename Nombre del archivo CSV.
+     * @throws FileNotFoundException Si el archivo no se encuentra.
      */
     public void cargarPokemones(String filename) throws FileNotFoundException {
   
@@ -107,6 +110,10 @@ public class ModelMap {
         }
     }
 
+    /**
+     * Guardar la colección del usuario en un archivo CSV.
+     * @param filenam Nombre del archivo donde se guardará la colección.
+     */
     public void cargarColeccionCSV(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String linea = reader.readLine(); // Saltar la cabecera
@@ -129,7 +136,7 @@ public class ModelMap {
 
     /**
      * Mostrar los datos de un Pokémon
-     * @param name
+     * @param name Nombre del pokemon
      */
     public void datosPokemon(String name) {
         if (pokemonMap.containsKey(name)) {
@@ -177,11 +184,19 @@ public class ModelMap {
     }
 
     /**
-     * Getters
+     * Obtener el map de pokemones de la dataset
      * @return
      */
     public Map<String, Pokemon> getPokemonMap() {
         return pokemonMap;
+    }
+    
+    /**
+     * Obtener la colección personal del usuario
+     * @return
+     */
+    public Set<String> getUserCollection(){
+        return userCollection;
     }
 }
     

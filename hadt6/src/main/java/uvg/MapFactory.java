@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.LinkedHashMap;
 
-
+/**
+ * Clase MapFactory
+ */
 public class MapFactory {
     public static Map<String, Pokemon> crearMap(int type) {
         switch (type) {
