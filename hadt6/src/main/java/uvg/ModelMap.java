@@ -35,41 +35,43 @@ public class ModelMap {
      * @throws FileNotFoundException
      */
     public void cargarPokemones(String filename) throws FileNotFoundException {
-    try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-        String line = br.readLine(); // Saltar la primera línea
-        while ((line = br.readLine()) != null) {
-            String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); // Expresión regular para manejar comas dentro de comillas
+  
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line = br.readLine(); // Saltar la primera línea
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); // Expresión regular para manejar comas dentro de comillas
 
-            if (data.length < 10) {
-                System.out.println("Error: línea inválida en el archivo CSV.");
-                continue;
+                if (data.length < 10) {
+                    System.out.println("Error: línea inválida en el archivo CSV.");
+                    continue;
+                }
+
+                try {
+                    String name = data[0].trim();
+                    int pokedexNumber = Integer.parseInt(data[1].trim());
+                    String type1 = data[2].trim();
+                    String type2 = data.length > 3 ? data[3].trim() : ""; 
+                    String classification = data[4].trim();
+                    double height = Double.parseDouble(data[5].trim());
+                    double weight = Double.parseDouble(data[6].trim());
+
+                    List<String> abilities = Arrays.asList(data[7].replace("\"", "").trim().split(", ")); // Quitar comillas y dividir correctamente
+                    
+                    int generation = Integer.parseInt(data[8].trim());
+                    boolean isLegendary = data[9].trim().equalsIgnoreCase("Yes");
+
+                    Pokemon pokemon = new Pokemon(name, pokedexNumber, type1, type2, classification, 
+                                                height, weight, abilities, generation, isLegendary);
+                    pokemonMap.put(pokemon.getName(), pokemon);
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: formato inválido en el archivo CSV. Línea ignorada.");
+                }
             }
-
-            try {
-                String name = data[0].trim();
-                int pokedexNumber = Integer.parseInt(data[1].trim());
-                String type1 = data[2].trim();
-                String type2 = data.length > 3 ? data[3].trim() : ""; 
-                String classification = data[4].trim();
-                double height = Double.parseDouble(data[5].trim());
-                double weight = Double.parseDouble(data[6].trim());
-
-                List<String> abilities = Arrays.asList(data[7].replace("\"", "").trim().split(", ")); // Quitar comillas y dividir correctamente
-                
-                int generation = Integer.parseInt(data[8].trim());
-                boolean isLegendary = data[9].trim().equalsIgnoreCase("Yes");
-
-                Pokemon pokemon = new Pokemon(name, pokedexNumber, type1, type2, classification, 
-                                              height, weight, abilities, generation, isLegendary);
-                pokemonMap.put(pokemon.getName(), pokemon);
-            } catch (NumberFormatException e) {
-                System.out.println("Error: formato inválido en el archivo CSV. Línea ignorada.");
-            }
+            System.out.println("Basa de datos cargada desde: " + filename);
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
         }
-    } catch (IOException e) {
-        System.out.println("Error al leer el archivo: " + e.getMessage());
     }
-}
 
     /**
      * Agregar un Pokémon a la colección del usuario
@@ -102,6 +104,26 @@ public class ModelMap {
             System.out.println("Colección guardada en " + archivo);
         } catch (IOException e) {
             System.out.println("Error al guardar la colección: " + e.getMessage());
+        }
+    }
+
+    public void cargarColeccionCSV(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String linea = reader.readLine(); // Saltar la cabecera
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(",");
+                if (datos.length > 0) {
+                    String nombre = datos[0].trim();
+                    if (pokemonMap.containsKey(nombre)) {
+                        userCollection.add(nombre);
+                    }
+                }
+            }
+            System.out.println("Colección cargada desde: " + filename);
+        } catch (FileNotFoundException e) {
+            System.out.println("No se encontró el archivo de colección, se iniciará una nueva colección.");
+        } catch (IOException e) {
+            System.out.println("Error al leer la colección: " + e.getMessage());
         }
     }
 
