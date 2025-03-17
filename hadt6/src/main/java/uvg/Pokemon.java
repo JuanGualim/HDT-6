@@ -104,9 +104,10 @@ public class Pokemon {
 
     @Override
     public String toString() {
-        return "Pokemon: \nname=" + name + "\ntype1=" + type1 + "\ntype2=" + type2 + "\nclassification=" + classification
-                + "\npokedexNumber=" + pokedexNumber + "\ngeneration=" + generation + "\nheight=" + height + "\nweight="
-                + weight + "\nisLegendary=" + isLegendary + "\nabilities=" + abilities + "";
+        return "Pokemon: \nname=" + name + "\npokedexNumber=" + pokedexNumber +  
+            "\ntype1=" + type1 + "\ntype2=" + type2 + "\nclassification=" + classification
+            + "\nheight=" + height + "\nweight=" + weight + "\nabilities=" + abilities 
+            + "\ngeneration=" + generation  + "\nisLegendary=" + isLegendary ;
     }
 
 }
