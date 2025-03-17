@@ -18,7 +18,7 @@ public class MapFactory {
             case 3:
                 return new LinkedHashMap<>();
             default:
-                throw new IllegalArgumentException("Tipo de mapa no válido");
+                throw new IllegalArgumentException("Tipo de mapa inválido");
         }
     }
 }

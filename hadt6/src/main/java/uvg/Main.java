@@ -10,14 +10,16 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
+        System.out.println("--BIENVENIDO AL SISTEMA--");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Seleccione el tipo de mapa:");
+        System.out.println("Seleccione el tipo de mapa que se implementará:");
         System.out.println("1. HashMap");
         System.out.println("2. TreeMap");
         System.out.println("3. LinkedHashMap");
 
         int tipoMapa = 0;
-        while (true) {
+        boolean comprobar = false;
+        while (!comprobar) {
             try {
                 System.out.print("Ingrese una opción: ");
                 tipoMapa = scanner.nextInt();
@@ -25,7 +27,7 @@ public class Main {
                 if (tipoMapa < 1 || tipoMapa > 3) {
                     System.out.println("Opción inválida. Intente nuevamente.");
                 } else {
-                    break;
+                    comprobar = true;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Ingrese un número válido.");
@@ -93,7 +95,7 @@ public class Main {
                     modelo.guardarColeccionCSV("coleccion_personal.csv");
                     break;
                 default:
-                    System.out.println("Opción no válida.");
+                    System.out.println("Opción inválida.");
             }
         }
         scanner.close();

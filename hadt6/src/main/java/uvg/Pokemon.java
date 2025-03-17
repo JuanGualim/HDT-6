@@ -186,10 +186,13 @@ public class Pokemon {
      */
     @Override
     public String toString() {
+        String legendry;
+        if(isLegendary) legendry = "Si";
+        else legendry = "No";
         return "\nPokemon: \nname = " + name + "\npokedexNumber = " + pokedexNumber +  
             "\ntype1 = " + type1 + "\ntype2 = " + type2 + "\nclassification = " + classification
             + "\nheight = " + height + "\nweight = " + weight + "\nabilities = " + abilities 
-            + "\ngeneration = " + generation  + "\nisLegendary = " + isLegendary ;
+            + "\ngeneration = " + generation  + "\nLegendary = " + legendry ;
     }
 
 }
